@@ -11,7 +11,7 @@ module.exports = async ({ core, github, context }) => {
 
 		core.info(`>>> owner: ${owner}`);
 		core.info(`>>> repo: ${repo}`);
-		core.info(`>>> issue number: ${issueNumber()}`);
+		core.info(`>>> issue number: ${issueNumber}`);
 
 		await github.rest.issues.addLabels({
 			owner,
