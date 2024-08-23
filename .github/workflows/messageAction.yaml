@@ -19,6 +19,10 @@ jobs:
     name: Test
     steps:
       - uses: actions/checkout@v3
+        with:
+          # Check this repository out, otherwise the script won't be available,
+          # as it checks out the repository where the workflow caller is located
+          repository: jsnerdic/reusable-workflows
       - name: Test script
         uses: actions/github-script@v7
         with:
