@@ -9,13 +9,9 @@ module.exports = async ({ core, github, context }) => {
 		const repo = context.repo.repo;
 		const issueNumber = context.issue.number;
 
-		const label = await github.rest.issues.getLabel({
-			owner,
-			repo,
-			name: ['help wanted'],
-		});
-
-		core.info(`>>> Label: ${label}`);
+		core.info(`>>> owner: ${owner}`);
+		core.info(`>>> repo: ${repo}`);
+		core.info(`>>> issue number: ${issueNumber()}`);
 
 		await github.rest.issues.addLabels({
 			owner,
