@@ -1,0 +1,27 @@
+name: Message on issue
+
+on:
+  issues:
+    types:
+      - opened
+      - reopened
+      - closed
+  workflow_call:
+
+permissions: {}
+
+jobs:
+  script_test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    name: Test
+    steps:
+      - uses: actions/checkout@v3
+      - name: Test script
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const script = require('./workflows/scripts/hello-world.js')
+            await script({github, context, core})
