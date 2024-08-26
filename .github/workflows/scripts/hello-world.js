@@ -3,7 +3,7 @@
  * are passed as arguments to the function
  * https://github.com/marketplace/actions/github-script#run-a-separate-file
  */
-module.exports = async ({ core, github, context }) => {
+export default async function ({ core, github, context }) {
 	try {
 		const owner = context.repo.owner;
 		const repo = context.repo.repo;
