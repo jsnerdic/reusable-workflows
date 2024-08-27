@@ -16,9 +16,7 @@ module.exports = async ({ core, github, context }) => {
 		core.info(`>>> repo: ${repo}`);
 		core.info(`>>> issue number: ${issueNumber}`);
 
-		core.info(`>>> issue closing reason: ${context.issue.state_reason}`)
-
-		core.setOutput('OUTPUT_TEST', 'random string for testing!');
+		core.setOutput('OUTPUT_TEST', `${process.env.MESSAGE} with random string for testing!`);
 
 		await github.rest.issues.createComment({
 			owner,
