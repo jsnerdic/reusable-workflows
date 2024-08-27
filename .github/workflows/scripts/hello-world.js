@@ -11,10 +11,9 @@ module.exports = async ({ core, github, context }) => {
 		const repo = context.repo.repo;
 		const issueNumber = context.issue.number;
 
-		const inputs = github.event.inputs
 		const testString = core.getInput('message')
 
-		core.info(`>>> inputs: ${JSON.stringify(inputs)}`)
+		core.info(`>>> inputs: ${JSON.stringify(context)}`)
 		core.info(`>>> message: ${testString}`)
 
 		core.info(`>>> owner: ${owner}`);
