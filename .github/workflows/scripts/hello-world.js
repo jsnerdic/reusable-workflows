@@ -3,18 +3,17 @@
  * @param {import("@actions/core")} params.core
  * @param {ReturnType<import("@actions/github").getOctokit>} params.github
  * @param {import("@actions/github").context} params.context
+ * @param {string} params.message
  * @param {any} params.inputs
  */
-module.exports = async ({ core, github, context }) => {
+module.exports = async ({ core, github, context, message, inputs }) => {
 	try {
 		const owner = context.repo.owner;
 		const repo = context.repo.repo;
 		const issueNumber = context.issue.number;
 
-		const testString = core.getInput('message')
-
-		core.info(`>>> inputs: ${JSON.stringify(context)}`)
-		core.info(`>>> message: ${testString}`)
+		core.info(`>>> inputs: ${JSON.stringify(inputs)}`)
+		core.info(`>>> message: ${message}`)
 
 		core.info(`>>> owner: ${owner}`);
 		core.info(`>>> repo: ${repo}`);
