@@ -1,16 +1,18 @@
 /**
- * We import these just for type checking as the actual imports
- * are passed as arguments to the function
- * https://github.com/marketplace/actions/github-script#run-a-separate-file
+ * @param {Object} params
+ * @param {import("@actions/core")} params.core
+ * @param {ReturnType<import("@actions/github").getOctokit>} params.github
+ * @param {import("@actions/github").context} params.context
+ * @param {any} params.inputs
  */
-module.exports = async ({ core, github, context }) => {
+module.exports = async ({ core, github, context, inputs }) => {
 	try {
 		const owner = context.repo.owner;
 		const repo = context.repo.repo;
 		const issueNumber = context.issue.number;
-		const comment = core.getInput('comment')
 
-		core.info(`>>> inputs: ${comment}`)
+		core.info(`>>> inputs: ${JSON.stringify(inputs)}`)
+		core.info(`>>> message: ${inputs.message}`)
 
 		core.info(`>>> owner: ${owner}`);
 		core.info(`>>> repo: ${repo}`);

@@ -32,4 +32,4 @@ jobs:
         with:
           script: |
             const script = require('./.github/workflows/scripts/hello-world.js')
-            await script({github, context, core})
+            await script({github, context, core, inputs: github.event.inputs})
