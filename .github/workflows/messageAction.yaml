@@ -7,6 +7,10 @@ on:
       - reopened
       - closed
   workflow_call:
+    inputs:
+      comment:
+        required: true
+        type: string
 
 permissions: {}
 
@@ -27,6 +31,5 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const { default: sayHello } = await import('${{ github.workspace }}/.github/workflows/scripts/hello-world.js')
-
-            await sayHello({github, context, core})
+            const script = require('./.github/workflows/scripts/hello-world.js')
+            await script({github, context, core})
