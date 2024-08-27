@@ -20,11 +20,11 @@ module.exports = async ({ core, github, context }) => {
 
 		core.setOutput('OUTPUT_TEST', 'random string for testing!');
 
-		await github.rest.issues.addComment({
+		await github.rest.issues.createComment({
 			owner,
 			repo,
 			issue_number: issueNumber,
-			labels: 'Hello there! :D',
+			body: process.env.MESSAGE,
 		});
 	} catch (error) {
 		core.setFailed(error.message);
