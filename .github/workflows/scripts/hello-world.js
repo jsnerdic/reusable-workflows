@@ -5,14 +5,17 @@
  * @param {import("@actions/github").context} params.context
  * @param {any} params.inputs
  */
-module.exports = async ({ core, github, context, inputs }) => {
+module.exports = async ({ core, github, context }) => {
 	try {
 		const owner = context.repo.owner;
 		const repo = context.repo.repo;
 		const issueNumber = context.issue.number;
 
+		const inputs = github.event.inputs
+		const testString = core.getInput('message')
+
 		core.info(`>>> inputs: ${JSON.stringify(inputs)}`)
-		core.info(`>>> message: ${inputs.message}`)
+		core.info(`>>> message: ${testString}`)
 
 		core.info(`>>> owner: ${owner}`);
 		core.info(`>>> repo: ${repo}`);
