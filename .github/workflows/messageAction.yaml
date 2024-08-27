@@ -8,7 +8,7 @@ on:
       - closed
   workflow_call:
     inputs:
-      comment:
+      message:
         required: true
         type: string
 
