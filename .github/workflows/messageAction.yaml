@@ -41,6 +41,6 @@ jobs:
   job2:
     runs-on: ubuntu-latest
     name: Script transfer test
-    needs: script_test
+    needs: job1
     steps:
       - run: echo "${{ needs.job1.outputs.lorem }}"
