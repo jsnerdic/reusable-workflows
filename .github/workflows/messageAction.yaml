@@ -17,10 +17,12 @@ permissions: {}
 jobs:
   script_test:
     runs-on: ubuntu-latest
+    name: Script output test
+    outputs:
+      TRANSFERRED_MESSAGE: ${{ steps.script.outputs.transferred_message }}
     permissions:
       contents: read
       issues: write
-    name: Test
     steps:
       - uses: actions/checkout@v3
         with:
@@ -36,5 +38,8 @@ jobs:
           script: |
             const script = require('./.github/workflows/scripts/hello-world.js')
             await script({github, context, core})
-      - name: Log output from previous step
-        run: echo "output from step before = ${{ steps.script.outputs.OUTPUT_TEST }}"
+  second_script_test:
+    runs-on: ubuntu-latest
+    name: Script transfer test
+    needs: script_test
+    run: echo "${{ needs.script_test.outputs.TRANSFERRED_MESSAGE }}"
