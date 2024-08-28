@@ -16,7 +16,7 @@ module.exports = async ({ core, github, context }) => {
 		core.info(`>>> repo: ${repo}`);
 		core.info(`>>> issue number: ${issueNumber}`);
 
-		core.setOutput('transferred_message', `${process.env.MESSAGE} with random string for testing!`);
+		core.setOutput('ipsum', `${process.env.MESSAGE} with random string for testing!`);
 
 		await github.rest.issues.createComment({
 			owner,

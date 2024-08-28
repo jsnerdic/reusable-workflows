@@ -15,11 +15,11 @@ on:
 permissions: {}
 
 jobs:
-  script_test:
+  job1:
     runs-on: ubuntu-latest
     name: Script output test
     outputs:
-      TRANSFERRED_MESSAGE: ${{ steps.script.outputs.transferred_message }}
+      lorem: ${{ steps.script.outputs.ipsum }}
     permissions:
       contents: read
       issues: write
@@ -38,8 +38,9 @@ jobs:
           script: |
             const script = require('./.github/workflows/scripts/hello-world.js')
             await script({github, context, core})
-  second_script_test:
+  job2:
     runs-on: ubuntu-latest
     name: Script transfer test
     needs: script_test
-    run: echo "${{ needs.script_test.outputs.TRANSFERRED_MESSAGE }}"
+    steps:
+      - run: echo "${{ needs.job1.outputs.lorem }}"
