@@ -1,0 +1,40 @@
+name: Message on issue
+
+on:
+  issues:
+    types:
+      - opened
+      - reopened
+      - closed
+  workflow_call:
+    inputs:
+      count:
+        required: true
+        type: string
+
+permissions: {}
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    name: Script output test
+    outputs:
+      countTransfer: ${{ steps.script.outputs.countTransfer }}
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # Check this repository out, otherwise the script won't be available,
+          # as it checks out the repository where the workflow caller is located
+          repository: jsnerdic/reusable-workflows
+      - name: Test script
+        id: script
+        uses: actions/github-script@v7
+        env:
+          COUNT: ${{ inputs.count }}
+        with:
+          script: |
+            const script = require('./.github/workflows/scripts/hello-world.js')
+            await script({github, context, core})

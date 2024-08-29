@@ -10,20 +10,16 @@ module.exports = async ({ core, github, context }) => {
 		const repo = context.repo.repo;
 		const issueNumber = context.issue.number;
 
-		core.info(`>>> message: ${process.env.MESSAGE}`)
+		core.info(`>>> count: ${process.env.COUNT}`)
+
+		const countTransfer = process.env.COUNT + 1
+		core.info(`>>> countTransfer: ${countTransfer}`)
 
 		core.info(`>>> owner: ${owner}`);
 		core.info(`>>> repo: ${repo}`);
 		core.info(`>>> issue number: ${issueNumber}`);
 
-		core.setOutput('ipsum', `${process.env.MESSAGE} with random string for testing!`);
-
-		await github.rest.issues.createComment({
-			owner,
-			repo,
-			issue_number: issueNumber,
-			body: process.env.MESSAGE,
-		});
+		core.setOutput('countTransfer', `${countTransfer}`);
 	} catch (error) {
 		core.setFailed(error.message);
 	}
