@@ -1,4 +1,4 @@
-name: Message on issue
+name: Data Transfer
 
 on:
   issues:
