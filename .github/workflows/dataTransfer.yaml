@@ -38,3 +38,9 @@ jobs:
           script: |
             const script = require('./.github/workflows/scripts/hello-world.js')
             await script({github, context, core})
+  job2:
+    runs-on: ubuntu-latest
+    name: Script output test
+    needs: job1
+    steps:
+      - run: echo "${{ needs.job1.outputs.countTransfer }}"
