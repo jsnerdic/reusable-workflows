@@ -13,7 +13,8 @@ on:
         type: string
     outputs:
       countTransfer:
-        type: string
+        description: "The count"
+        value: ${{ jobs.job1.outputs.countTransfer }}
 
 
 permissions: {}
