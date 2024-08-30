@@ -7,10 +7,6 @@ on:
       - reopened
       - closed
   workflow_call:
-    inputs:
-      message:
-        required: true
-        type: string
 
 permissions: {}
 
@@ -18,8 +14,6 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     name: Script output test
-    outputs:
-      lorem: ${{ steps.script.outputs.ipsum }}
     permissions:
       contents: read
       issues: write
@@ -32,15 +26,7 @@ jobs:
       - name: Test script
         id: script
         uses: actions/github-script@v7
-        env:
-          MESSAGE: ${{ inputs.message }}
         with:
           script: |
             const script = require('./.github/workflows/scripts/hello-world.js')
             await script({github, context, core})
-  job2:
-    runs-on: ubuntu-latest
-    name: Script transfer test
-    needs: job1
-    steps:
-      - run: echo "${{ needs.job1.outputs.lorem }}"
