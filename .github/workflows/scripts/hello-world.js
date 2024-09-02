@@ -1,3 +1,4 @@
+// @ts-check
 /**
  * @param {Object} params
  * @param {import("@actions/core")} params.core
