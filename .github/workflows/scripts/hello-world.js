@@ -7,25 +7,17 @@
  */
 module.exports = async ({ core, github, context }) => {
 	try {
-		const owner = context.repo.owner;
-
 		const orderId = '93920';
-
 		const envToken = process.env.SHOP_TOKEN || '';
-		const orderApiToken = await github.rest.actions.getOrgSecret({
-			owner,
-			secret_name: 'SHOP_AUTH_TOKEN',
-		});
 
 		const orderApi = 'https://store-wp.mui.com/wp-json/wc/v3/orders/';
 
 		core.info(`>>> Order ID: ${orderId}`);
 		core.info(`>>> envToken is set: ${envToken !== ''}`);
-		core.info(`>>> orderApiToken is set: ${!!orderApiToken}`);
 
 		const order = await fetch(`${orderApi}${orderId}`, {
 			headers: {
-				Authorization: `Basic ${orderApiToken}`,
+				Authorization: `Basic ${envToken}`,
 				'User-Agent': 'MUI-Tools-Private/X-Orders-Inspector v1',
 			},
 		});
