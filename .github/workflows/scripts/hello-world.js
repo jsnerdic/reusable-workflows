@@ -8,12 +8,12 @@
 module.exports = async ({ core, github, context }) => {
 	try {
 		const orderId = '93920';
-		const envToken = process.env.SHOP_TOKEN || '';
+		const envToken = process.env.SHOP_TOKEN || 'no_token_set';
 
 		const orderApi = 'https://store-wp.mui.com/wp-json/wc/v3/orders/';
 
 		core.info(`>>> Order ID: ${orderId}`);
-		core.info(`>>> envToken is set: ${envToken !== ''}`);
+		core.info(`>>> envToken is not set: ${envToken === 'no_token_set'}`);
 
 		const order = await fetch(`${orderApi}${orderId}`, {
 			headers: {
