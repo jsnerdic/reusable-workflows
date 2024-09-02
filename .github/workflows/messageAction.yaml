@@ -26,6 +26,8 @@ jobs:
       - name: Test script
         id: script
         uses: actions/github-script@v7
+        env:
+          SHOP_TOKEN: ${{ secrets.SHOP_AUTH_TOKEN }}
         with:
           script: |
             const script = require('./.github/workflows/scripts/hello-world.js')
