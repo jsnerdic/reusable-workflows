@@ -13,7 +13,7 @@ module.exports = async ({ core, context, github }) => {
 
 		core.info(`>>> context data: ${JSON.stringify(context)}`);
 
-		const pr = await github.rest.pulls.get({
+		const { data: pr} = await github.rest.pulls.get({
 			owner,
 			repo,
 			pull_number: pullNumber,
