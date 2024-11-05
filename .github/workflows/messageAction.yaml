@@ -1,7 +1,7 @@
 name: Message on issue
 
 on:
-  issues:
+  pull_request:
     types:
       - opened
       - reopened
@@ -29,6 +29,4 @@ jobs:
         with:
           script: |
             const script = require('./.github/workflows/scripts/hello-world.js')
-            await script({github, context, core})
-        env:
-          SHOP_TOKEN: ${{ secrets.SHOP_AUTH_TOKEN }}
+            await script({github, context, core})\

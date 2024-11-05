@@ -5,39 +5,24 @@
  * @param {ReturnType<import("@actions/github").getOctokit>} params.github
  * @param {import("@actions/github").context} params.context
  */
-module.exports = async ({ core, github, context }) => {
+module.exports = async ({ core, context, github }) => {
 	try {
-		const orderId = '93920';
-		const envToken = process.env.SHOP_TOKEN || 'no_token_set';
+		const owner = context.repo.owner;
+		const repo = context.repo.repo;
+		const pullNumber = context.issue.number;
 
-		const orderApi = 'https://store-wp.mui.com/wp-json/wc/v3/orders/';
+		core.info(`>>> context data: ${JSON.stringify(context)}`);
 
-		core.info(`>>> Order ID: ${orderId}`);
-		core.info(`>>> envToken is not set: ${envToken === 'no_token_set'}`);
-
-		const order = await fetch(`${orderApi}${orderId}`, {
-			headers: {
-				Authorization: `Basic ${envToken}`,
-				'User-Agent': 'MUI-Tools-Private/X-Orders-Inspector v1',
-			},
+		const pr = await github.rest.pulls.get({
+			owner,
+			repo,
+			pull_number: pullNumber,
 		});
 
-		if (!order.ok) {
-			core.info(`Request to ${orderApi} failed. Response status code: ${order.status}.`);
-		}
-
-		const orderDetails = await order.json();
-
-		core.info(`>>> Order Items: ${orderDetails.line_items?.join(',')}`);
-
-		const plan =
-			orderDetails.line_items?.filter((item) => /\b(pro|premium)\b/i.test(item.name))[0].name ||
-			'';
-
-		if (!plan) {
-			core.info('No Pro or Premium plan found in order');
-		}
+		core.info(`>>> PR data: ${JSON.stringify(pr)}`);
+		core.info(`>>> PR fetched: ${pr.id}`);
 	} catch (error) {
+		core.error(`>>> Workflow failed with: ${error.message}`);
 		core.setFailed(error.message);
 	}
 };
