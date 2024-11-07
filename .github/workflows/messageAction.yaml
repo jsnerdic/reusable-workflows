@@ -49,5 +49,5 @@ jobs:
       - name: Echo values
         run: |
           echo "output values: "
-          echo "out 1: ${{ matric.env1 }}"
+          echo "out 1: ${{ matrix.env1 }}"
           echo "out 2: ${{ matrix.env2 }}"
