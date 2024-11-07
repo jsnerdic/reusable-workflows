@@ -7,20 +7,8 @@
  */
 module.exports = async ({ core, context, github }) => {
 	try {
-		const owner = context.repo.owner;
-		const repo = context.repo.repo;
-		const pullNumber = context.issue.number;
-
-		core.info(`>>> context data: ${JSON.stringify(context)}`);
-
-		const { data: pr} = await github.rest.pulls.get({
-			owner,
-			repo,
-			pull_number: pullNumber,
-		});
-
-		core.info(`>>> PR data: ${JSON.stringify(pr)}`);
-		core.info(`>>> PR fetched: ${pr.id}`);
+		core.setOutput('TEST_OUT1', ['a1', 'b1']);
+		core.setOutput('TEST_OUT2', ['a2', 'b2']);
 	} catch (error) {
 		core.error(`>>> Workflow failed with: ${error.message}`);
 		core.setFailed(error.message);

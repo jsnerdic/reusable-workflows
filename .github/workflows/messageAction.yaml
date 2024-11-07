@@ -1,7 +1,7 @@
 name: Message on issue
 
 on:
-  pull_request:
+  issues:
     types:
       - opened
       - reopened
@@ -21,6 +21,9 @@ jobs:
       contents: read
       issues: write
       pull-requests: write
+    outputs:
+      out1: ${{ steps.script.outputs.TEST_OUT1 }}
+      out2: ${{ steps.script.outputs.TEST_OUT2 }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -34,3 +37,17 @@ jobs:
           script: |
             const script = require('./.github/workflows/scripts/hello-world.js')
             await script({github, context, core})
+  job2:
+    runs-on: ubuntu-latest
+    name: Echo values
+    needs: job1
+    strategy:
+      matrix:
+        env1: ${{ needs.job1.outputs.out1 }}
+        env2: ${{ fromJSON(needs.job1.outputs.out2) }}
+    steps:
+      - name: Echo values
+        run: |
+          echo "output values: "
+          echo "out 1: ${{ matric.env1 }}"
+          echo "out 2: ${{ matrix.env2 }}"
