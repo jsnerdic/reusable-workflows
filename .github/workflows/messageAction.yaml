@@ -1,53 +1,23 @@
-name: Message on issue
+name: Explore GH actions
 
 on:
-  issues:
-    types:
-      - opened
-      - reopened
-      - closed
   workflow_call:
 
 permissions:
   contents: read
-  issues: write
-  pull-requests: write
 
 jobs:
   job1:
     runs-on: ubuntu-latest
-    name: Script output test
-    permissions:
-      contents: read
-      issues: write
-      pull-requests: write
-    outputs:
-      out1: ${{ steps.script.outputs.TEST_OUT1 }}
-      out2: ${{ steps.script.outputs.TEST_OUT2 }}
     steps:
-      - uses: actions/checkout@v3
-        with:
-          # Check this repository out, otherwise the script won't be available,
-          # as it checks out the repository where the workflow caller is located
-          repository: jsnerdic/reusable-workflows
-      - name: Test script
-        id: script
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const script = require('./.github/workflows/scripts/hello-world.js')
-            await script({github, context, core})
-  job2:
-    runs-on: ubuntu-latest
-    name: Echo values
-    needs: job1
-    strategy:
-      matrix:
-        env1: ${{ fromJSON(needs.job1.outputs.out1) }}
-        env2: ${{ fromJSON(needs.job1.outputs.out2) }}
-    steps:
-      - name: Echo values
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: List files in the repository
         run: |
-          echo "output values: "
-          echo "out 1: ${{ matrix.env1 }}"
-          echo "out 2: ${{ matrix.env2 }}"
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
