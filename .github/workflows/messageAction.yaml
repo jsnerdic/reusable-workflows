@@ -16,8 +16,6 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     name: Script output test
-    outputs:
-      countTransfer: ${{ steps.script.outputs.countTransfer }}
     permissions:
       contents: read
       issues: write
