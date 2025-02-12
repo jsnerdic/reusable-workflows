@@ -7,14 +7,7 @@ on:
       - reopened
       - closed
   workflow_call:
-    inputs:
-      count:
-        required: true
-        type: string
-    outputs:
-      countTransfer:
-        description: "The count"
-        value: ${{ jobs.job1.outputs.countTransfer }}
+  workflow_dispatch:
 
 
 permissions: {}
@@ -37,8 +30,6 @@ jobs:
       - name: Test script
         id: script
         uses: actions/github-script@v7
-        env:
-          COUNT: ${{ inputs.count }}
         with:
           script: |
             const script = require('./.github/workflows/scripts/hello-world.js')
