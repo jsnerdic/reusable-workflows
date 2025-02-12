@@ -23,6 +23,8 @@ module.exports = async ({ core, context, github }) => {
 		core.info(`>>> Fetch: Issue title: ${issue.data.title}`);
 		core.info(`>>> Fetch: Issue state: ${issue.data.state}`);
 		core.info(`>>> Fetch: Issue state reason: ${issue.data.state_reason}`);
+
+		core.info(`>>> Fetch: Issue JSON: ${JSON.stringify(issue, null, 2)}`);
 	} catch (error) {
 		core.error(`>>> Workflow failed with: ${error.message}`);
 		core.setFailed(error.message);
